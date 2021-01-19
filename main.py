@@ -1,16 +1,14 @@
-# This is a sample Python script.
 from craigslist import CraigslistHousing
 from service.EmailService import EmailService
 from service.PostCache import PostCache
+import datetime
 
+#todo this is garbage and should be moved to another level
 negative_filter = ['lampwork lofts', 'macarthur commons', 'bakery lofts', 'the boise']
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    timestamp = datetime.datetime.now()
+    print(timestamp) 
     cl_h = CraigslistHousing(site='sfbay', area='eby', category='apa',
                              filters={'max_price': 2500, 'private_room': True, 'query': 'loft',
                                       'search_distance': 10, 'zip_code': 94612
