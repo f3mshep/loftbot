@@ -10,7 +10,10 @@ negative_filter = ['lampwork lofts', 'macarthur commons', 'bakery lofts', 'the b
 
 if __name__ == '__main__':
     timestamp = datetime.datetime.now()
+    print("-----------")
     print(timestamp) 
+    print("-----------")
+
     cl_h = CraigslistHousing(site='sfbay', area='eby', category='apa',
                              filters={'max_price': 2500, 'private_room': True, 'query': 'loft',
                                       'search_distance': 10, 'zip_code': 94612
@@ -30,3 +33,6 @@ if __name__ == '__main__':
                         email_service.send_email(result)
 
     cache.dump_cache()
+    print("-----------")
+    print("Finished job..") 
+    print("-----------")
