@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from craigslist import CraigslistHousing
 from service.EmailService import EmailService
 from service.PostCache import PostCache
