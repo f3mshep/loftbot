@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     for zip in zippies:
         print("Searching zipcode: ", str(zip))
-        cl_h = CraigslistHousing(site, area, category,
+        cl_h = CraigslistHousing('portland', area, category,
                              filters={
                                 'max_price': filters.get('max_price'), 
                                 'private_room': filters.get('private_room'),
@@ -42,15 +42,16 @@ if __name__ == '__main__':
         results = cl_h.get_results(sort_by='newest', geotagged=True, include_details=True)
 
 
-    should_send_emails = not cache.is_cache_empty()
-    for result in results:
-        if result['body']:
-            downcase_body = result['body'].lower()
-            if not any(x in downcase_body for x in negative_filter):
-                if not cache.peek(result['id']):
-                    cache.handle_post(result)
-                    if should_send_emails:
-                        email_service.send_email(result)
+        should_send_emails = not cache.is_cache_empty()
+        for result in results:
+            if result['body']:
+                downcase_body = result['body'].lower()
+                if not any(x in downcase_body for x in negative_filter):
+                    if not cache.peek(result['id']):
+                        cache.handle_post(result)
+                        if should_send_emails:
+                            email_service.send_email(result)
+        print("Finished zipcode: ", str(zip))
 
     cache.dump_cache()
     print("-----------")
