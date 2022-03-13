@@ -8,7 +8,7 @@ import datetime
 #todo this is garbage and should be moved to another level
 negative_filter = ['studio']
 
-zippies = [97211,997218,97212,97213,97232,97214,97215,97202,97206]
+zippies = [97211,97218,97212,97213,97232,97214,97215,97202,97206]
 
 site = 'portland',
 area = 'mlt',
