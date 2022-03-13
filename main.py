@@ -28,15 +28,16 @@ if __name__ == '__main__':
     print("-----------")
 
     cache = PostCache()
-    email_service = EmailService()
 
     for zip in zippies:
+        email_service = EmailService()
         print("Searching zipcode: ", str(zip))
         cl_h = CraigslistHousing('portland', area, category,
                              filters={
                                 'max_price': filters.get('max_price'), 
                                 'private_room': filters.get('private_room'),
-                                'search_distance': 1, 'zip_code': zip
+                                'search_distance': 1, 'zip_code': zip,
+                                'dogs_ok': True
                                 }
                                 )
         results = cl_h.get_results(sort_by='newest', geotagged=True, include_details=True)

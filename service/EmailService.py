@@ -15,8 +15,9 @@ class EmailService:
 
     def send_email(self, post):
         with smtplib.SMTP_SSL("smtp.gmail.com", EmailService.PORT, context=self.context) as server:
+            server.ehlo()
             server.login(EmailService.SENDER_EMAIL, EmailService.PASSWORD)
-            subject = "New loft found!"
+            subject = "New Apartment found!"
             text = ("Description: \n\n" + post["body"] + "\n\n" + "URL: " + post["url"]).encode('ascii', 'ignore')
             message = 'Subject: {}\n\n{}'.format(subject, text)
             server.sendmail(EmailService.SENDER_EMAIL, EmailService.RECIPIENT_EMAIL, message)
