@@ -18,17 +18,17 @@ class PostCache:
         except:
             self.cache = {}
 
-    def handle_post(self, post):
+    def handle_post(self, post, timestamp):
         if not self.peek(post['id']):
-            self.handle_miss(post)
+            self.handle_miss(post, timestamp)
 
     def dump_cache(self):
         with open(PostCache.CACHE_CONTENTS, 'w') as outfile:
             output = json.dump(self.cache, outfile)
         return True
 
-    def add_to_cache(self, post):
-        self.cache[post['id']] = True
+    def add_to_cache(self, post, timestamp):
+        self.cache[post['id']] = str(timestamp)
         return True
 
     def peek(self, post_id):
@@ -40,10 +40,10 @@ class PostCache:
     def get_post(self, post_id):
         return self.cache[post_id]
 
-    def handle_miss(self, post):
+    def handle_miss(self, post, timestamp):
         print("adding new post to cache..")
         print(post)
-        self.add_to_cache(post)
+        self.add_to_cache(post, timestamp)
 
     def is_cache_empty(self):
         return len(self.cache.keys()) < 1
