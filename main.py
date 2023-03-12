@@ -36,3 +36,4 @@ if __name__ == '__main__':
     print(str(timestamp_finished) + " complete!")
     print("-----------")
     cache.dump_cache()
+    cl_h.quit()
