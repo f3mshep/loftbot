@@ -16,4 +16,4 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           
           script:
-            cd projects; git clone git@github.com:f3mshep/loftbot.git; echo "Deployment Successful!"
+            cd ~/projects/loftbot; git pull; chmod +x main.py; echo "Deployment Successful!"
