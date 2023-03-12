@@ -1,17 +1,29 @@
 #!/usr/bin/python3
+import logging
 from datetime import datetime
 
 from craigslist_headless import CraigslistHousing
+
 from service.EmailService import EmailService
 from service.PostCache import PostCache
 
 negative_filter = ['studio']
+LOG_NAME = "loftbot.log"
 
 if __name__ == '__main__':
+
+    logging.basicConfig(filename=LOG_NAME,
+                        filemode='a',
+                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S',
+                        level=logging.INFO)
+
+    logging.info("Running Urban Planning")
+
     timestamp = datetime.now()
-    print("-----------")
-    print(str(timestamp) + " started!")
-    print("-----------")
+    logging.info("-----------")
+    logging.info(str(timestamp) + " started!")
+    logging.info("-----------")
 
     cl_h = CraigslistHousing(site='portland', area='mlt', category='apa',
                              filters={'max_price': 1400, 'private_room': True,
@@ -32,8 +44,8 @@ if __name__ == '__main__':
                         email_service.send_email(result)
 
     timestamp_finished = datetime.now()
-    print("-----------")
-    print(str(timestamp_finished) + " complete!")
-    print("-----------")
+    logging.info("-----------")
+    logging.info(str(timestamp_finished) + " complete!")
+    logging.info("-----------")
     cache.dump_cache()
     cl_h.quit()

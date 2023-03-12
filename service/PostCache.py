@@ -1,12 +1,16 @@
 import json
+import os
+
+CACHE_FULL_PATH = os.environ.get('CACHE_FULL_PATH')
+DEFAULT_PATH = "cache.json"
 
 
 class PostCache:
-    CACHE_CONTENTS = 'cache.json'
 
     def __init__(self):
+        self.path = CACHE_FULL_PATH if CACHE_FULL_PATH is not None else DEFAULT_PATH
         try:
-            with open(PostCache.CACHE_CONTENTS) as json_file:
+            with open(self.path) as json_file:
                 if json_file:
                     data = json.load(json_file, strict=False)
                     if data:
@@ -23,8 +27,8 @@ class PostCache:
             self.handle_miss(post, timestamp)
 
     def dump_cache(self):
-        with open(PostCache.CACHE_CONTENTS, 'w') as outfile:
-            output = json.dump(self.cache, outfile)
+        with open(self.path, 'w') as outfile:
+            json.dump(self.cache, outfile)
         return True
 
     def add_to_cache(self, post, timestamp):
