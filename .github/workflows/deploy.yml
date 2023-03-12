@@ -16,4 +16,4 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           
           script:
-            cd ~/projects/loftbot; git pull; chmod +x main.py; pip install -r requirements.txt; echo "Deployment Successful!"
+            cd ~/projects/loftbot; git stash; git pull; chmod +x main.py; pip install -r requirements.txt; echo "Deployment Successful!"
