@@ -16,7 +16,4 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           
           script:
-            mkdir projects
-            cd projects
-            git clone git@github.com:f3mshep/loftbot.git
-            echo "Deployment Successful!"
+            cd projects; git clone git@github.com:f3mshep/loftbot.git; echo "Deployment Successful!"
