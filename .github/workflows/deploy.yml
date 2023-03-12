@@ -1,0 +1,19 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [master]
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Loftbot
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+          
+          script:
+            cd ~/projects/loftbot; git pull; chmod +x main.py; echo "Deployment Successful!"
