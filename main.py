@@ -18,8 +18,6 @@ if __name__ == '__main__':
                         datefmt='%H:%M:%S',
                         level=logging.INFO)
 
-    logging.info("Running Urban Planning")
-
     timestamp = datetime.now()
     logging.info("-----------")
     logging.info(str(timestamp) + " started!")
@@ -36,12 +34,19 @@ if __name__ == '__main__':
     should_send_emails = True
     for result in results:
         if result is not None and 'body' in result:
-            downcase_body = result['body'].lower()
-            if not any(x in downcase_body for x in negative_filter):
-                if not cache.peek(result['id']):
-                    cache.handle_post(result, timestamp)
-                    if should_send_emails:
-                        email_service.send_email(result)
+            try:
+                downcase_body = result['body'].lower()
+                name = result['name']
+                logging.info(f"found post {name}!")
+                if not any(x in downcase_body for x in negative_filter):
+                    if not cache.peek(result['id']):
+                        logging.info(f"post {name} is fresh, adding to cache!")
+                        cache.handle_post(result, timestamp)
+                        if should_send_emails:
+                            logging.info(f"emailing post {name} to subscribers!")
+                            email_service.send_email(result)
+            except Exception as e:
+                logging.error("something went wrong handling a result", e)
 
     timestamp_finished = datetime.now()
     logging.info("-----------")
