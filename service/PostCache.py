@@ -8,7 +8,7 @@ DEFAULT_PATH = "cache.json"
 class PostCache:
 
     def __init__(self):
-        self.path = CACHE_FULL_PATH if CACHE_FULL_PATH is not None else DEFAULT_PATH
+        self.path = DEFAULT_PATH
         try:
             with open(self.path) as json_file:
                 if json_file:
